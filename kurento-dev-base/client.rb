@@ -5,7 +5,7 @@ pid_file           "/var/run/chef/client.pid"
 Mixlib::Log::Formatter.show_time = true
 log_location       STDOUT
 log_level          :info
-node_name	"docker-kurento-dev-chef"
+node_name	"docker-kurento-dev-base"
 validation_client_name	"chef-validator"
 validation_key	"/etc/chef/chef-validator.pem"
 
