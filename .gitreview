@@ -1,0 +1,6 @@
+[gerrit]
+host=repository.kurento.com
+port=12345
+project=adm-kurento-docker-repo
+defaultbranch=develop
+
