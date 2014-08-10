@@ -15,4 +15,7 @@ ADD chef-validator.pem /etc/chef/chef-validator.pem
 ADD client.rb /etc/chef/client.rb
 ADD client.pem /etc/chef/client.pem
 
+RUN chef-client
+
+
 
