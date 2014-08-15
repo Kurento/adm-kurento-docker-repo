@@ -15,7 +15,10 @@ ADD chef-validator.pem /etc/chef/chef-validator.pem
 ADD client.rb /etc/chef/client.rb
 ADD client.pem /etc/chef/client.pem
 
+# Set the locale
+RUN locale-gen en_US.UTF-8  
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+
 RUN chef-client
-
-
-
