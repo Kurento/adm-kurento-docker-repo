@@ -22,7 +22,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Set suid to sudo
-RUN chmod 4755 /usr/bin/sudo
+# RUN chmod 4755 /usr/bin/sudo
 
 # SSHd service daemon
 RUN apt-get update && apt-get install -y openssh-server
