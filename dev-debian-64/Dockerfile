@@ -6,7 +6,7 @@ FROM      ubuntu:14.04
 MAINTAINER Alin CALINCIUC<alin.calinciuc@gmail.com>
 
 # make sure the package repository is up to date and install supervisor
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get install -y curl supervisor
 
 RUN curl -L https://www.opscode.com/chef/install.sh | sudo bash
