@@ -9,7 +9,7 @@ MAINTAINER Alin CALINCIUC<alin.calinciuc@gmail.com>
 RUN apt-get update -y
 RUN apt-get install -y curl supervisor
 
-RUN curl -L https://www.opscode.com/chef/install.sh | sudo bash
+RUN curl -L https://www.opscode.com/chef/install.sh | bash
 
 ADD chef-validator.pem /etc/chef/chef-validator.pem
 ADD client.rb /etc/chef/client.rb
