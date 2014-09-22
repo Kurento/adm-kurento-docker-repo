@@ -31,3 +31,8 @@ EXPOSE 22
 
 # Install dev-debian
 RUN chef-client
+
+# Configure Supervisor for SSHd
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD supervisord -c /etc/supervisor/supervisord.conf
+

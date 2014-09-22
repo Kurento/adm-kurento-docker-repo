@@ -27,12 +27,13 @@ RUN chmod 4755 /usr/bin/sudo
 # SSHd service daemon
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
+
 # Add password nubomedia for user root 
-RUN echo 'root:nubomedia' |chpasswd
+#RUN echo 'root:nubomedia' |chpasswd
 
 EXPOSE 22
 
-# Install dev-debian
+# Install dev-kurento
 RUN chef-client
 
 # Configure Supervisor for SSHd
