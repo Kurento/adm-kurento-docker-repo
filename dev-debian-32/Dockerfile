@@ -9,7 +9,7 @@ MAINTAINER Alin CALINCIUC<alin.calinciuc@gmail.com>
 RUN apt-get update -y
 RUN apt-get install -y curl supervisor
 
-RUN curl -L https://www.opscode.com/chef/install.sh | bash
+RUN curl -L https://www.opscode.com/chef/install.sh | sudo bash
 
 ADD chef-validator.pem /etc/chef/chef-validator.pem
 ADD client.rb /etc/chef/client.rb
@@ -24,15 +24,5 @@ ENV LC_ALL en_US.UTF-8
 # SSHd service daemon
 RUN apt-get update && apt-get install -y openssh-server
 
-# Add password nubomedia for user root 
-RUN echo 'root:nubomedia' |chpasswd
-
-EXPOSE 22
-
 # Install dev-debian
 RUN chef-client
-
-# Configure Supervisor for SSHd
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD supervisord -c /etc/supervisor/supervisord.conf
-
