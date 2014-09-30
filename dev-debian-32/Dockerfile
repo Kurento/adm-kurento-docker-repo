@@ -7,7 +7,7 @@ MAINTAINER Alin CALINCIUC<alin.calinciuc@gmail.com>
 
 # make sure the package repository is up to date and install supervisor
 RUN apt-get update -y
-RUN apt-get install -y curl supervisor
+RUN apt-get install -y curl supervisor sudo
 
 RUN curl -L https://www.opscode.com/chef/install.sh | sudo bash
 
@@ -20,9 +20,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8
-
-# SSHd service daemon
-RUN apt-get update && apt-get install -y openssh-server
 
 # Install dev-debian
 RUN chef-client
