@@ -21,5 +21,10 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8
 
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN ln -s /bin/true /sbin/initctl
+
 # Install dev-debian
 RUN chef-client
+
+RUN ln -s /sbin/initctl.distrib /sbin/initctl
