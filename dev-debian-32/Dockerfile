@@ -27,4 +27,4 @@ RUN ln -s /bin/true /sbin/initctl
 # Install dev-debian
 RUN chef-client
 
-RUN ln -s /sbin/initctl.distrib /sbin/initctl
+RUN ln -sf /sbin/initctl.distrib /sbin/initctl
