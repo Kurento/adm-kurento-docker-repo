@@ -7,13 +7,7 @@ MAINTAINER Patxi Gortázar <patxi.gortazar@gmail.com>
 
 # make sure the package repository is up to date
 RUN apt-get update
-RUN apt-get install -y curl
-
-RUN curl -L https://www.opscode.com/chef/install.sh | sudo bash
-
-ADD chef-validator.pem /etc/chef/chef-validator.pem
-ADD client.rb /etc/chef/client.rb
-ADD client.pem /etc/chef/client.pem
+RUN apt-get install -y curl wget
 
 # Set the locale
 RUN locale-gen en_US.UTF-8  
@@ -27,8 +21,8 @@ RUN chmod 4755 /usr/bin/sudo
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 
-RUN chef-client
-
-RUN apt-get install -y kurento-media-server
+RUN add-apt-repository ppa:kurento/kurento
+RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | sudo apt-key add -
+RUN apt-get update && apt-get install -y kurento-media-server
 
 RUN /usr/sbin/sshd
