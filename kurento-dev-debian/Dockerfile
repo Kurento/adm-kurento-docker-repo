@@ -21,6 +21,7 @@ RUN chmod 4755 /usr/bin/sudo
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 
+RUN apt-get install -y python-software-properties
 RUN add-apt-repository ppa:kurento/kurento
 RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | sudo apt-key add -
 RUN apt-get update && apt-get install -y kurento-media-server
