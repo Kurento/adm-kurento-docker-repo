@@ -24,4 +24,11 @@ ENV LC_ALL en_US.UTF-8
 # Set suid to sudo
 RUN chmod 4755 /usr/bin/sudo
 
+RUN apt-get update && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+
 RUN chef-client
+
+RUN apt-get install -y kurento-media-server
+
+RUN /usr/sbin/sshd
