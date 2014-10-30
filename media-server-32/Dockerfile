@@ -18,7 +18,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN echo "deb http://ppa.launchpad.net/kurento/kurento/ubuntu trusty main\ndeb-src http://ppa.launchpad.net/kurento/kurento/ubuntu trusty main" > /etc/apt/sources.list.d/kurento.list
 
-RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | sudo apt-key add -
+RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add -
 RUN apt-get update && apt-get install -y --force-yes kurento-media-server
 
 EXPOSE 8888
