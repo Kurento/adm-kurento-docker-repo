@@ -3,7 +3,7 @@
 # VERSION               0.1.0
 
 FROM      i686/ubuntu:14.04
-MAINTAINER Alin CALINCIUC<alin.calinciuc@gmail.com>
+MAINTAINER kurento <kurento@googlegroups.com>
 
 # make sure the package repository is up to date and install supervisor
 RUN apt-get update -y

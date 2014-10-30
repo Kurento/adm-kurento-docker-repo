@@ -3,7 +3,7 @@
 # VERSION               0.1.0
 
 FROM      ubuntu:14.04
-MAINTAINER Patxi Gortázar <patxi.gortazar@gmail.com>
+MAINTAINER Kurento <kurento@googlegroups.com>
 
 # make sure the package repository is up to date
 RUN apt-get update
