@@ -6,9 +6,7 @@ FROM      ubuntu:14.04
 MAINTAINER Kurento <kurento@googlegroups.com>
 
 # make sure the package repository is up to date
-RUN apt-get update
-
-RUN apt-get install -y wget
+RUN apt-get update && apt-get install -y wget
 
 # Set the locale
 RUN locale-gen en_US.UTF-8  
