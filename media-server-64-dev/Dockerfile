@@ -1,9 +1,15 @@
-# Kurento chef client
+# Kurento media server build file
 #
-# VERSION               0.1.0
+# VERSION               0.2.0
 
-FROM      ubuntu:14.04
+FROM       phusion/baseimage:0.9.15
 MAINTAINER Kurento <kurento@googlegroups.com>
+
+# Set correct environment variables.
+ENV HOME /root
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
 
 # make sure the package repository is up to date
 RUN apt-get update && apt-get install -y wget
@@ -20,6 +26,12 @@ RUN echo "deb http://ubuntu.kurento.org trusty main" > /etc/apt/sources.list.d/k
 RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | sudo apt-key add -
 RUN apt-get update && apt-get install -y --force-yes kurento-media-server
 
+### Start kurento-media-server:
+RUN mkdir -p /var/log/kurento-media-server
+RUN mkdir /etc/service/kurento-media-server
+ADD kurento-media-server.sh /etc/service/kurento-media-server/run
+
 EXPOSE 8888
 
-CMD kurento-media-server
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
