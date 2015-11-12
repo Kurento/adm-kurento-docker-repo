@@ -5,6 +5,8 @@
 FROM      ubuntu:14.04
 MAINTAINER Patxi Gortázar <patxi.gortazar@gmail.com>
 
+RUN echo "Acquire::http::Proxy \"http://ubuntu.kurento.org:3142\";" > /etc/apt/apt.conf.d/01proxy
+
 RUN apt-get update && apt-get install -y wget
 
 RUN	echo "deb http://ubuntu.kurento.org trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento.list \
