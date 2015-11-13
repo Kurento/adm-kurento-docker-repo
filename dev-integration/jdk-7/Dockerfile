@@ -21,4 +21,3 @@ RUN mkdir /nodejs \
 ENV PATH $PATH:/nodejs/bin
 
 RUN npm -g install bower
-RUN echo "{ \"allow_root\": true }" >> .bowerrc
