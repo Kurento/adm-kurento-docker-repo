@@ -21,3 +21,12 @@ RUN mkdir /nodejs \
 ENV PATH $PATH:/nodejs/bin
 
 RUN npm -g install bower
+
+RUN apt-get update -y \
+  && apt-get install --no-install-recommends -y -q \
+    jshon \
+    python-pip
+
+RUN pip install \
+  boto3 \
+  dnspython
