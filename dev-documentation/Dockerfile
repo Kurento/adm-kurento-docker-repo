@@ -10,6 +10,7 @@ RUN apt-get update \
     python-dev \
     python-pip \
     python-setuptools \
+    rsync \
     zlib1g-dev
 
 RUN pip install \
