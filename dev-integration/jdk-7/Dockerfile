@@ -12,7 +12,8 @@ RUN apt-get update -y \
     curl \
     git \
     mediainfo \
-    python
+    python \
+    gnupg
 
 RUN mkdir /nodejs \
   && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
