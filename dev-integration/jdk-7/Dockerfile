@@ -13,7 +13,8 @@ RUN apt-get update -y \
     git \
     mediainfo \
     python \
-    gnupg
+    gnupg \
+    xmlstarlet
 
 RUN mkdir /nodejs \
   && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
