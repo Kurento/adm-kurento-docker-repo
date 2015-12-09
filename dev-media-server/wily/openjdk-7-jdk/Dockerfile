@@ -5,7 +5,17 @@ FROM buildpack-deps:wily-scm
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
 
-RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
+# Configure Kurento's apt proxy
+RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
+
+RUN apt-get update \
+  && apt-get install -y \
+    git-review \
+    realpath \
+    unzip \
+    wget \
+    zip \
+  && rm -rf /var/lib/apt/lists/*
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
