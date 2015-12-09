@@ -1,4 +1,7 @@
-FROM kurento/dev-integration:jdk-8-node-0.12
+FROM kurento/dev-media-server:trusty-jdk-7
+
+# Configure Kurento's apt proxy
+RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
 
 RUN apt-get update \
   && apt-get install -y \
