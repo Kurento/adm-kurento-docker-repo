@@ -5,8 +5,9 @@ FROM buildpack-deps:trusty-scm
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
 
-# Configure Kurento's apt proxy if necessary
-RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
+# Configure Kurento's apt proxy
+RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
+  && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
 
 RUN apt-get update \
   && apt-get install -y \
@@ -22,5 +23,18 @@ ENV LANG C.UTF-8
 
 RUN apt-get update && apt-get install -y openjdk-7-jdk gnupg && rm -rf /var/lib/apt/lists/*
 
-# If you're reading this and have any feedback on how this image could be
-#   improved, please open an issue or a pull request so we can discuss it!
+ENV MAVEN_VERSION 3.3.9
+
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME /usr/share/maven
+
+RUN mkdir /nodejs \
+  && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
+  && apt-get install -y nodejs
+
+ENV PATH $PATH:/nodejs/bin
+
+RUN npm -g install bower
