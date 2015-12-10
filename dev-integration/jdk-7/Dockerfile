@@ -13,8 +13,13 @@ RUN apt-get update -y \
     git \
     mediainfo \
     python \
+    python-dev \
     gnupg \
-    xmlstarlet
+    xmlstarlet \
+    jshon \
+    python-pip \
+    libffi-dev \
+    libssl-dev
 
 RUN mkdir /nodejs \
   && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
@@ -24,11 +29,7 @@ ENV PATH $PATH:/nodejs/bin
 
 RUN npm -g install bower
 
-RUN apt-get update -y \
-  && apt-get install --no-install-recommends -y -q \
-    jshon \
-    python-pip
-
 RUN pip install \
   boto3 \
-  dnspython
+  dnspython \
+  pyOpenSSL
