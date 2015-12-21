@@ -18,6 +18,7 @@ RUN apt-get update \
     zip \
   && rm -rf /var/lib/apt/lists/*
 
+# Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
 RUN apt-get update && apt-get install -y openjdk-8-jdk gnupg && rm -rf /var/lib/apt/lists/*

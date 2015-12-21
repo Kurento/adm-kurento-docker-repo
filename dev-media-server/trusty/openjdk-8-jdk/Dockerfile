@@ -9,15 +9,16 @@ FROM buildpack-deps:trusty-scm
 RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
   && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
 
-	RUN apt-get update \
-	  && apt-get install -y \
-	    git-review \
-	    realpath \
-	    unzip \
-	    wget \
-	    zip \
-	  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+  && apt-get install -y \
+    git-review \
+    realpath \
+    unzip \
+    wget \
+    zip \
+  && rm -rf /var/lib/apt/lists/*
 
+# Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
 RUN gpg --keyserver keyserver.ubuntu.com --recv EB9B1D8886F44E2A \
