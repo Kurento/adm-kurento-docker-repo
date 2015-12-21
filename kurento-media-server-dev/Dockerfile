@@ -19,8 +19,9 @@ RUN	echo "deb http://ubuntu.kurento.org trusty-dev kms6" | tee /etc/apt/sources.
 		kms-face-segmentator-6.0 \
 		kms-platedetector-6.0 \
 		kms-pointerdetector-6.0
-		
+
 RUN apt-get install -y \
+	gdb \
   kurento-media-server-6.0-dbg \
 	kms-core-6.0-dbg \
 	kms-elements-6.0-dbg \

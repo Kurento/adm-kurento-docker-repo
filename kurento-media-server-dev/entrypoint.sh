@@ -18,12 +18,11 @@ fi
 
 # Remove ipv6 local loop until ipv6 is supported
 cat /etc/hosts | sed '/::1/d' | tee /etc/hosts > /dev/null
-
-/usr/bin/kurento-media-server "$@"
-
-# Remove ipv6 local loop until ipv6 is supported
-cat /etc/hosts | sed '/::1/d' | tee /etc/hosts > /dev/null
-/usr/bin/kurento-media-server "$@" || result=$?
+ulimit -c
+cat /proc/sys/kernel/core_pattern
+/usr/bin/kurento-media-server $@ || result=$?
+echo "Kurento media server exited with $result"
+# This is ABORT
 if [ $result == 134 ];
 then
   gdbbt /usr/bin/kurento-media-server core | cat
