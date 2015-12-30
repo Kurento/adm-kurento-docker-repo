@@ -18,7 +18,8 @@ RUN	echo "deb http://ubuntu.kurento.org trusty-dev kms6" | tee /etc/apt/sources.
 		kms-crowddetector-6.0 \
 		kms-face-segmentator-6.0 \
 		kms-platedetector-6.0 \
-		kms-pointerdetector-6.0
+		kms-pointerdetector-6.0 \
+		kms-s3
 
 RUN apt-get install -y \
 	gdb \
@@ -30,6 +31,7 @@ RUN apt-get install -y \
 	kms-crowddetector-6.0-dbg \
 	kms-platedetector-6.0-dbg \
 	kms-pointerdetector-6.0-dbg \
+	kms-s3-dbg \
 	gstreamer1.5-libav-dbg \
 	gstreamer1.5-plugins-bad-dbg \
 	gstreamer1.5-plugins-base-dbg \
