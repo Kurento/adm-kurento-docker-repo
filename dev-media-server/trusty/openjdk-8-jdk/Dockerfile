@@ -6,12 +6,14 @@ FROM buildpack-deps:trusty-scm
 #       really hairy.
 
 # Configure Kurento's apt proxy
-RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
+RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
   && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
 
 RUN apt-get update \
   && apt-get install -y \
     git-review \
+    python \
+    python-configobj \
     realpath \
     unzip \
     wget \
@@ -28,18 +30,23 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv EB9B1D8886F44E2A \
 	&& apt-get install -y --force-yes openjdk-8-jdk \
 	&& rm -rf /var/lib/apt/lists/*
 
-	ENV MAVEN_VERSION 3.3.9
+ENV MAVEN_VERSION 3.3.9
 
-	RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
 	  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
 	  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-	ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_HOME /usr/share/maven
 
-	RUN mkdir /nodejs \
+RUN mkdir /nodejs \
 	  && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
 	  && apt-get install -y nodejs
 
-	ENV PATH $PATH:/nodejs/bin
+ENV PATH $PATH:/nodejs/bin
 
-	RUN npm -g install bower
+RUN npm -g install bower
+
+# Prepare ubuntu s3 repositories
+RUN wget http://ftp.de.debian.org/debian/pool/main/a/apt-transport-s3/apt-transport-s3_1.2.1-1_all.deb \
+  && dpkg -i apt-transport-s3_1.2.1-1_all.deb \
+  && echo "deb s3://ubuntu-priv.kurento.org.s3.amazonaws.com trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list

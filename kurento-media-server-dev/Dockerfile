@@ -3,14 +3,26 @@
 # VERSION               6.1.0
 
 FROM      ubuntu:14.04
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
 MAINTAINER Patxi Gortázar <patxi.gortazar@gmail.com>
 
-RUN echo "Acquire::http::Proxy \"http://ubuntu.kurento.org:3142\";" > /etc/apt/apt.conf.d/01proxy
+RUN echo "Acquire::http::Proxy \"http://proxy.kurento.org:3142\";" > /etc/apt/apt.conf.d/01proxy
 
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update \
+	&& apt-get install -y \
+		python \
+		python-configobj \
+		wget
 
-RUN	echo "deb http://ubuntu.kurento.org trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento.list \
-	&& wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add - \
+# Install apt-transport-s3 to allow s3 backed repositories
+RUN wget http://ftp.de.debian.org/debian/pool/main/a/apt-transport-s3/apt-transport-s3_1.2.1-1_all.deb \
+	&& dpkg -i apt-transport-s3_1.2.1-1_all.deb \
+	&& echo "AccessKeyId = $AWS_ACCESS_KEY_ID\nSecretAccessKey = $AWS_SECRET_ACCESS_KEY\nToken = ''" | tee /etc/apt/s3auth.conf
+
+RUN	echo "deb http://ubuntuci.kurento.org trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento.list \
+	&& echo "deb s3://ubuntu-priv.kurento.org.s3.amazonaws.com trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list \
+	&& apt-key adv --keyserver keyserver.ubuntu.com --recv 2F819BC0 \
 	&& apt-get update \
 	&& apt-get -y install \
 	  kurento-media-server-6.0 \

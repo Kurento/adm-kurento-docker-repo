@@ -6,12 +6,14 @@ FROM buildpack-deps:trusty-scm
 #       really hairy.
 
 # Configure Kurento's apt proxy
-RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
+RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
   && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
 
 RUN apt-get update \
   && apt-get install -y \
     git-review \
+    python \
+    python-configobj \
     realpath \
     unzip \
     wget \
@@ -38,3 +40,8 @@ RUN mkdir /nodejs \
 ENV PATH $PATH:/nodejs/bin
 
 RUN npm -g install bower
+
+# Prepare ubuntu s3 repositories
+RUN wget http://ftp.de.debian.org/debian/pool/main/a/apt-transport-s3/apt-transport-s3_1.2.1-1_all.deb \
+  && dpkg -i apt-transport-s3_1.2.1-1_all.deb \
+  && echo "deb s3://ubuntu-priv.kurento.org.s3.amazonaws.com trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list

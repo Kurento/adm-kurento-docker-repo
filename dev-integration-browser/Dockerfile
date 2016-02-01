@@ -3,7 +3,7 @@ FROM selenium/node-base:2.48.2
 USER root
 
 # Configure Kurento's apt proxy
-RUN echo 'Acquire::http::Proxy "http://ubuntu.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
+RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
 # HTTPS repos must connect directly as apt-cacher does not support it
 RUN echo 'Acquire::http::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
 
