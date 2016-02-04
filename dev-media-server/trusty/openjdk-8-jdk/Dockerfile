@@ -48,5 +48,4 @@ RUN npm -g install bower
 
 # Prepare ubuntu s3 repositories
 RUN wget http://ftp.de.debian.org/debian/pool/main/a/apt-transport-s3/apt-transport-s3_1.2.1-1_all.deb \
-  && dpkg -i apt-transport-s3_1.2.1-1_all.deb \
-  && echo "deb s3://ubuntu-priv.kurento.org.s3.amazonaws.com trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list
+  && dpkg -i apt-transport-s3_1.2.1-1_all.deb
