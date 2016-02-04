@@ -30,6 +30,7 @@ ENV PATH $PATH:/nodejs/bin
 RUN npm -g install bower
 
 RUN pip install \
+  awscli \
   boto3 \
   dnspython \
   pyOpenSSL
