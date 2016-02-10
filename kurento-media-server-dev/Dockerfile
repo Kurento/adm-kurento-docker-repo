@@ -31,7 +31,8 @@ RUN	echo "deb http://ubuntuci.kurento.org trusty-dev kms6" | tee /etc/apt/source
 		kms-face-segmentator-6.0 \
 		kms-platedetector-6.0 \
 		kms-pointerdetector-6.0 \
-		kms-s3
+		kms-s3 \
+		kms-sfu
 
 RUN apt-get install -y \
 	gdb \
@@ -44,6 +45,7 @@ RUN apt-get install -y \
 	kms-platedetector-6.0-dbg \
 	kms-pointerdetector-6.0-dbg \
 	kms-s3-dbg \
+	kms-sfu-dbg \
 	gstreamer1.5-libav-dbg \
 	gstreamer1.5-plugins-bad-dbg \
 	gstreamer1.5-plugins-base-dbg \
