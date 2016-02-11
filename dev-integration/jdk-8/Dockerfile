@@ -35,10 +35,10 @@ RUN pip install \
   dnspython \
   pyOpenSSL
 
-  # Install ffmpeg on debian jessie (https://www.deb-multimedia.org/)
-  # It is not available on official repositories (https://wiki.debian.org/ffmpeg)
-  RUN echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/deb-multimedia.list \
-    && apt-get update \
-    && apt-get install -y --force-yes deb-multimedia-keyring \
-    && apt-get update \
-    && apt-get install -y ffmpeg
+# Install ffmpeg on debian jessie (https://www.deb-multimedia.org/)
+# It is not available on official repositories (https://wiki.debian.org/ffmpeg)
+RUN echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/deb-multimedia.list \
+  && apt-get update \
+  && apt-get install -y --force-yes deb-multimedia-keyring \
+  && apt-get update \
+  && apt-get install -y ffmpeg
