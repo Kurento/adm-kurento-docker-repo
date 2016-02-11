@@ -40,4 +40,8 @@ ENV PATH $PATH:/nodejs/bin
 
 RUN npm -g install bower
 
+RUN apt-get update \
+  && apt-get install -y \
+    ffmpeg
+
 USER seluser
