@@ -26,6 +26,7 @@ COPY ./turnserver.sh /turnserver.sh
 ENV TURN_USERNAME kurento
 ENV TURN_PASSWORD kurento
 ENV REALM kurento.org
+ENV NAT false
 
 EXPOSE 3478 3478/udp
 

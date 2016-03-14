@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ -z "$EXTERNAL_IP" ]; then
+if [ $NAT = "true" -a -z "$EXTERNAL_IP" ]; then
 
   # Try to get public IP
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4) || echo "No public ip found on http://169.254.169.254/latest/meta-data/public-ipv4"
@@ -22,6 +22,6 @@ echo 'lt-cred-mech' >> /etc/turnserver.conf
 echo "realm=$REALM" >> /etc/turnserver.conf
 echo 'log-file stdout' >> /etc/turnserver.conf
 echo "user=$TURN_USERNAME:$TURN_PASSWORD" >> /etc/turnserver.conf
-echo "external-ip=$EXTERNAL_IP" >> /etc/turnserver.conf
+[ $NAT = "true" ] && echo "external-ip=$EXTERNAL_IP" >> /etc/turnserver.conf
 
 exec /usr/bin/turnserver "$@"
