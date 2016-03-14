@@ -1,6 +1,10 @@
 #!/bin/bash -x
 set -e
 
+if [ -n "$KMS_TURN_URL" ]; then
+  echo "turnURL=$KMS_TURN_URL" > /etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
+fi
+
 if [ -n "$KMS_STUN_IP" -a -n "$KMS_STUN_PORT" ]; then
   # Generate WebRtcEndpoint configuration
   echo "stunServerAddress=$KMS_STUN_IP" > /etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
