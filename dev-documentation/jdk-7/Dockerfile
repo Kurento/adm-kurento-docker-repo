@@ -16,7 +16,8 @@ RUN apt-get update \
     python-pip \
     python-setuptools \
     rsync \
-    zlib1g-dev
+    zlib1g-dev \
+    cmake
 
 RUN pip install \
   javasphinx \
