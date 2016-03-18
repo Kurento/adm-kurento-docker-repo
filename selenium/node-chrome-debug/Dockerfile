@@ -1,4 +1,4 @@
-FROM selenium/node-chrome-debug:2.47.1
+FROM kurento/node-chrome-debug:2.47.1
 
 RUN apt-get update && apt-get install -y iproute
 
