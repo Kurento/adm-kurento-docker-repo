@@ -1,4 +1,4 @@
-FROM selenium/node-base:2.48.2
+FROM selenium/node-base:2.47.1
 
 USER root
 
@@ -15,8 +15,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   && apt-get update -qqy \
   && apt-get -qqy install \
     google-chrome-stable \
-  && rm /etc/apt/sources.list.d/google-chrome.list \
-  && rm -rf /var/lib/apt/lists/*
+  && rm /etc/apt/sources.list.d/google-chrome.list
 
 #=========
 # Firefox
@@ -26,10 +25,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AF316E81A155146718A
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
     firefox \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /etc/apt/sources.list.d/firefox.list
 
 RUN apt-get update -y \
-  && apt-get install --no-install-recommends -y -q \
+  && apt-get install -y -q \
     ca-certificates \
     curl \
     git
