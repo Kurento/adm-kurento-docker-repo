@@ -1,5 +1,7 @@
 FROM selenium/node-base:2.47.1
 
+ARG NODE_VERSION
+
 USER root
 
 # Configure Kurento's apt proxy
@@ -33,9 +35,9 @@ RUN apt-get update -y \
     curl \
     git
 
-RUN mkdir /nodejs \
-  && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION | bash - \
   && apt-get install -y nodejs
+
 
 ENV PATH $PATH:/nodejs/bin
 
