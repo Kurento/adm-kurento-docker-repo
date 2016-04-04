@@ -3,6 +3,7 @@
 # VERSION	6.0.0
 
 FROM	maven:3.3.3-jdk-7
+ARG NODE_VERSION
 MAINTAINER Patxi Gortázar <patxi.gortazar@gmail.com>
 
 RUN apt-get update -y \
@@ -21,8 +22,7 @@ RUN apt-get update -y \
     libffi-dev \
     libssl-dev
 
-RUN mkdir /nodejs \
-  && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION | bash - \
   && apt-get install -y nodejs
 
 ENV PATH $PATH:/nodejs/bin
