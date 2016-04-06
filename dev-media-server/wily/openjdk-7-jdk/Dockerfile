@@ -5,10 +5,6 @@ FROM buildpack-deps:wily-scm
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
 
-# Configure Kurento's apt proxy
-RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
-  && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
-
 RUN apt-get update \
   && apt-get install -y \
     git-review \
@@ -27,7 +23,7 @@ RUN apt-get update && apt-get install -y openjdk-7-jdk gnupg && rm -rf /var/lib/
 
 ENV MAVEN_VERSION 3.3.9
 
-RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+RUN curl -fsSL http://apache.rediris.es/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
@@ -42,5 +38,12 @@ ENV PATH $PATH:/nodejs/bin
 RUN npm -g install bower
 
 # Prepare ubuntu s3 repositories
-RUN wget http://ftp.de.debian.org/debian/pool/main/a/apt-transport-s3/apt-transport-s3_1.2.1-1_all.deb \
-  && dpkg -i apt-transport-s3_1.2.1-1_all.deb
+RUN echo "deb http://ubuntuci.kurento.org wily-dev kms6" | tee /etc/apt/sources.list.d/kurento.list \
+  && apt-get update \
+  && apt-get install -y --force-yes apt-transport-s3-kurento
+
+RUN echo "deb s3://eu-west-1.s3.amazonaws.com/ubuntu-priv.kurento.org wily-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list
+
+# Configure Kurento's apt proxy
+RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy \
+  && echo 'Acquire::HTTP::Proxy::deb.nodesource.com "DIRECT";' >> /etc/apt/apt.conf.d/01proxy
