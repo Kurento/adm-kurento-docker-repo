@@ -1,0 +1,3 @@
+image:
+  name: kurento/kurento-test-files
+  version: 0.1.0
