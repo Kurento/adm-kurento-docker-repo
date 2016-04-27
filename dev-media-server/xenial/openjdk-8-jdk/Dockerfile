@@ -6,10 +6,6 @@ FROM buildpack-deps:xenial-scm
 #       really hairy.
 
 # Fix for "no matching key exchange method found" error (http://www.openssh.com/legacy.html)
-RUN mkdir -p /root/.ssh \
-  && echo "Host somehost.example.org" >> /root/.ssh/config \
-  && echo "  KexAlgorithms +diffie-hellman-group1-sha1" >> /root/.ssh/config
-
 RUN apt-get update \
   && apt-get install -y \
     git-review \
