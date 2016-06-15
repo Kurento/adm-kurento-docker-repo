@@ -24,6 +24,7 @@ RUN	echo "deb http://ubuntuci.kurento.org trusty-dev kms6" | tee /etc/apt/source
 	&& echo "deb s3://ubuntu-priv.kurento.org.s3.amazonaws.com trusty-dev kms6" | tee /etc/apt/sources.list.d/kurento-priv.list \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv 2F819BC0 \
 	&& apt-get update \
+	&& apt-get -y dist-upgrade \
 	&& apt-get -y install \
 	  kurento-media-server-6.0 \
 		kms-chroma-6.0 \
