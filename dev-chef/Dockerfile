@@ -18,7 +18,4 @@ RUN apt-get update \
   && apt-get install -y \
   zlib1g-dev
 
-RUN gem install --no-ri --no-rdoc berkshelf -v '~>3.2.3' \
-  && gem install --no-ri --no-rdoc test-kitchen -v '~>1.3.1' \
-  && gem install --no-ri --no-rdoc kitchen-docker -v '~>1.7.0' \
-  && gem install --no-ri --no-rdoc foodcritic -v '~>4.0.0'
+RUN gem install --no-ri --no-rdoc foodcritic -v '~>4.0.0'
