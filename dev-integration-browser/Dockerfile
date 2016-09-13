@@ -1,8 +1,8 @@
-FROM selenium/node-base:2.47.1
-
-ARG NODE_VERSION
+FROM selenium/node-base:2.53.1-rc1
 
 USER root
+
+ARG NODE_VERSION
 
 # Configure Kurento's apt proxy
 #RUN echo 'Acquire::http::Proxy "http://proxy.kurento.org:3142";' > /etc/apt/apt.conf.d/01proxy
