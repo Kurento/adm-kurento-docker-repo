@@ -1,3 +1,0 @@
-image:
-  name: kurento/dev-integration-browser
-  version: 2.53.0-node-$NODE_VERSION
